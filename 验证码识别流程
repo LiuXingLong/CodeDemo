@@ -1,1 +1,22 @@
+<?php
+$imagePath="http://talent.baidu.com/baidu/web/httpservice/getVerifyCode";//  或者  $imagePath="1.jpg";
+$img = imagecreatefromjpeg($imagePath);       //创建一个新图象
+// $img = imagecreatefromgif($imagePath);     // gif 格式
+imagefilter($img, IMG_FILTER_GRAYSCALE); //图片灰度处理
+$size= getimagesize($imagePath);         //获取图片尺寸	
 
+for($i=0;$i<$size[1];$i++){
+			for($j=0;$j<$size[0];$j++){
+				$rgb = imagecolorat($this->img, $j, $i);            //取得某像素的颜色索引值
+				$rgbarray = imagecolorsforindex($this->img, $rgb);  //取得某索引的颜色
+				//过滤二值化处理
+				if($rgbarray['red']<130&&$rgbarray['green']<130&&$rgbarray['blue']<130){ 
+					echo "0";
+				}else{
+					echo "-";
+				}
+			}
+			echo "<br>";
+	}
+
+//  接下来建立特征  验证码字符串   然后比对 
